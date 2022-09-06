@@ -18,7 +18,7 @@ export default function Searchbar({ onSubmit }) {
 
   const handleFilter = (e) => {
     setType(e.target.dataset.type);
-    onSubmit(query, type);
+    onSubmit(query, e.target.dataset.type);
   };
 
   return (

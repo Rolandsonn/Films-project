@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import styles from "./HomePage.module.scss";
 
 import axios from "axios";
 
 import BtnUp from "../../components/BtnUp";
-import MovieList from "../../components/MovieList";
+import MovieList from "../../components/movies";
 import LoadMoreBtn from "../../components/LoadMoreBtn";
 import { useEffect } from "react";
 

@@ -22,7 +22,7 @@ export default function ReviewsItem({
       /> */}
       <h1 className={styles.ReviewsItem__title}>{author}</h1>
       <p className={styles.ReviewsItem__text}>{content}</p>
-      <p className={styles.ReviewsItem__text}>Created date:{created_at}</p>
+      <p className={styles.ReviewsItem__date}>Created date:{created_at}</p>
     </li>
   );
 }

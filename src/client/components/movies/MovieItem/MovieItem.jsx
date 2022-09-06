@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import imageDef from "../../../image/default_image.png";
+import imageDef from "../../../../image/default_image.png";
 
 import styles from "./MovieItem.module.scss";
 
@@ -11,7 +11,7 @@ export default function MovieItem({
   title,
   vote_average,
   id,
-  video,
+  name,
 }) {
   return (
     <li className={styles.MovieItem}>
@@ -26,7 +26,7 @@ export default function MovieItem({
           alt="img"
         />
         <div className={styles.MovieItem__wrapper}>
-          <h1 className={styles.MovieItem__title}>{title || "Unknown"}</h1>
+          <h1 className={styles.MovieItem__title}>{title || name}</h1>
           <p className={styles.MovieItem__rating}>
             User Score: {Math.round(vote_average)}/10
           </p>

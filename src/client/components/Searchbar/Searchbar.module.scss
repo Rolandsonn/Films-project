@@ -25,6 +25,7 @@
     0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
   &__searchForm {
     display: flex;
+    justify-content: center;
     align-items: center;
     width: 100%;
     margin-bottom: 20px;
@@ -79,6 +80,17 @@
     &::placeholder {
       font: inherit;
       font-size: 18px;
+    }
+  }
+}
+@media screen and (max-width: 576px) {
+  .SearchBar {
+    &__radioForm {
+      display: none;
+    }
+    &__searchForm {
+      overflow: inherit;
+      max-width: 500px;
     }
   }
 }
