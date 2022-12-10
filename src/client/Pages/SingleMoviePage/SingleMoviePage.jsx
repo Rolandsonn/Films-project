@@ -2,6 +2,7 @@ import React from "react";
 import { useParams, Route, Routes, Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
+import BtnFavorites from "../../components/BtnFavorites";
 import Cast from "../../components/cast";
 import Reviews from "../../components/reviews";
 
@@ -10,10 +11,14 @@ import styles from "./SingleMoviePage.module.scss";
 import axios from "axios";
 import shortid from "shortid";
 
+import { useFav } from "../../context/FavContextProvider";
+
 export default function SingleMoviePage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [movie, setMovie] = useState({});
+  const [favorite, setFavorite] = useState([]);
+  const { getFav } = useFav();
   const API_KEY = process.env.REACT_APP_API_KEY;
 
   const handleGoBack = () => navigate(-1, { replace: true });
@@ -27,8 +32,16 @@ export default function SingleMoviePage() {
     });
   }, []);
 
+  const handleAddMovie = () => {
+    setFavorite((prevState) => {
+      if (prevState !== movie) {
+        return [...prevState, favorite];
+      }
+    });
+  };
+
   const genres = movie.genres?.map((item) => (
-    <div className={styles.SinglePage__genres}>
+    <div key={shortid.generate()} className={styles.SinglePage__genres}>
       <p
         className={`${styles.SinglePage__list_item} ${styles.SinglePage__genres}`}
         key={shortid.generate()}
@@ -48,9 +61,12 @@ export default function SingleMoviePage() {
           <div className={`${styles.SinglePage__inner} ${styles.container}`}>
             <img
               className={styles.SinglePage__img}
-              src={`https://image.tmdb.org/t/p/w500${
-                movie.poster_path || movie.backdrop_path
-              }`}
+              src={
+                movie.poster_path &&
+                `https://image.tmdb.org/t/p/w500${
+                  movie.poster_path || movie.backdrop_path
+                }`
+              }
               alt="img"
             />
 
@@ -59,18 +75,14 @@ export default function SingleMoviePage() {
                 <h1 className={styles.SinglePage__list_title}>{movie.title}</h1>
               </li>
               <li className={styles.SinglePage__list_item}>
+                <h2 className={styles.SinglePage__list_subtitle}>User Score</h2>
                 <p className={styles.SinglePage__text}>
-                  <h2 className={styles.SinglePage__list_subtitle}>
-                    User Score
-                  </h2>
                   {Math.round(movie.vote_average)}/10
                 </p>
               </li>
               <li className={styles.SinglePage__list_item}>
-                <p className={styles.SinglePage__list_text}>
-                  <h2 className={styles.SinglePage__list_subtitle}>Overview</h2>
-                  {movie.overview}
-                </p>
+                <h2 className={styles.SinglePage__list_subtitle}>Overview</h2>
+                <p className={styles.SinglePage__list_text}>{movie.overview}</p>
               </li>
               <li className={styles.SinglePage__list_item}>
                 <h2 className={styles.SinglePage__list_subtitle}>Genres</h2>
@@ -83,6 +95,7 @@ export default function SingleMoviePage() {
                 <Link className={styles.SinglePage__list_link} to="reviews">
                   Reviews
                 </Link>
+                <BtnFavorites onClick={handleAddMovie} />
               </li>
             </ul>
           </div>

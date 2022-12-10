@@ -18,17 +18,17 @@ export default function MoviePage() {
   const API_KEY = process.env.REACT_APP_API_KEY;
 
   useEffect(() => {
-    const apiUrl = `https://api.themoviedb.org/3/search/movie/?api_key=923c2cf88ec4338da74c768a045101f0&language=en-US&page=${currentPage}&include_adult=true&query=${query}&video=true`;
+    const apiUrl = `https://api.themoviedb.org/3/search/movie/?api_key=${API_KEY}&language=en-US&page=${currentPage}&include_adult=true&query=${query}&video=true`;
     if (query !== "") {
       axios.get(apiUrl).then((response) => {
         const data = response.data;
         setFilms((prevState) => [...prevState, ...data.results]);
       });
     }
-  }, [query, currentPage]);
+  }, [currentPage, API_KEY]);
 
   useEffect(() => {
-    const apiUrl = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&page=1&include_adult=true&query=${query}&`;
+    const apiUrl = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&page=${currentPage}&include_adult=true&query=${query}&`;
     console.log(type);
     if (query !== "") {
       axios.get(apiUrl).then((response) => {
